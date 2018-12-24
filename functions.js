@@ -5,7 +5,11 @@
  * - logs "Hello <name>" if there is a name
  */
 function greet(name) {
-  // Your code here
+  if (name) {
+    console.log(`Hello ${name}.`);
+  } else {
+    console.log("Hello.");
+  }
 }
 
 /**
@@ -14,8 +18,12 @@ function greet(name) {
  * - returns true if it's odd, false otherwise
  */
 function isOdd(n) {
-  // Your code here
-}
+  if (n % 2 !== 0) {
+    return true;
+  } else {
+    return false;
+  }
+} // or we can do it in one line return n % 2 !== 0;
 
 /**
  * oddsSmallerThan(n):
@@ -29,7 +37,9 @@ function isOdd(n) {
  * Hint: you can solve this without writing any loops!
  */
 function oddsSmallerThan(n) {
-  // Your code here
+  if (isOdd(n)) n--;
+  return n / 2;
+  // or in one line return Math.floor(n/2);
 }
 
 /**
@@ -38,12 +48,19 @@ function oddsSmallerThan(n) {
  * - returns its square if it's odd
  * - returns its double if it's even
  *
+ * - assume all civilIDs will be valid
+ *
+ * Hint: you can use
  * e.g.
  * squareOrDouble(16) -> 32
  * squareOrDouble(9) -> 81
  */
 function squareOrDouble(n) {
-  // Your code here
+  if (isOdd(n)) {
+    return n * n;
+  } else {
+    return n + n;
+  }
 }
 
 /**
@@ -54,10 +71,7 @@ function squareOrDouble(n) {
  *     - YY is the year (00 - 99)
  *     - MM is the month (01 - 12)
  *     - DD is the date
- * - calculates and returns the age of the civilID holder (rounded down to the nearest year)
- * - assume all civilIDs will be valid
- *
- * Hint: you can use JavaScript's Date() class to make things easier
+ * - calculates and returns the age of the civilID holder (rounded down to the nearest year)JavaScript's Date() class to make things easier
  * (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
  *
  * e.g. (if we assume that the date today is September 23 2018):
@@ -65,7 +79,18 @@ function squareOrDouble(n) {
  *    ageFromCivilID(297111012345) -> 20
  */
 function ageFromCivilID(civilID) {
-  // Your code here
+  const year = 17 + +civilID[0] + civilID[1] + civilID[2]; //"1" is "1" but >> +"1" << is 1 the plus make the string a number.
+  const month = civilID[3] + civilID[4];
+  const day = civilID[5] + civilID[6];
+
+  const today = new Date();
+  const dob = new Date(year, month - 1, day);
+
+  console.log(today, dob);
+
+  let age = today.getFullYear() - dob.getFullYear();
+
+  return age;
 }
 
 /**
@@ -80,7 +105,7 @@ function ageFromCivilID(civilID) {
  *    - Is NOT a member of the royal family
  */
 function canVoteInKuwait(civilID, isKuwaiti, isRoyal) {
-  // Your code here
+  return ageFromCivilID(civilID) >= 21 && isKuwaiti && !isRoyal;
 }
 
 module.exports = {
